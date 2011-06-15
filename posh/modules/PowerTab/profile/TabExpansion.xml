@@ -1,0 +1,53 @@
+<?xml version="1.0" standalone="yes"?>
+<NewDataSet>
+  <Custom>
+    <Filter>|%</Filter>
+    <Text>| foreach {$_}</Text>
+    <Type>Alias</Type>
+  </Custom>
+  <Custom>
+    <Filter>|?</Filter>
+    <Text>| where {$_}</Text>
+    <Type>Alias</Type>
+  </Custom>
+  <Custom>
+    <Filter>tqb</Filter>
+    <Text>The quick brown fox jumps over the lazy dog</Text>
+    <Type>Custom</Type>
+  </Custom>
+  <Custom>
+    <Filter>Localhost</Filter>
+    <Text>Localhost</Text>
+    <Type>Computer</Type>
+  </Custom>
+  <Custom>
+    <Filter>h</Filter>
+    <Text>Get-help $^ -Full</Text>
+    <Type>Custom</Type>
+  </Custom>
+  <Custom>
+    <Filter>h</Filter>
+    <Text>Get-help $^ -Detailed</Text>
+    <Type>Custom</Type>
+  </Custom>
+  <Custom>
+    <Filter>h</Filter>
+    <Text>Get-help $^ -Examples</Text>
+    <Type>Custom</Type>
+  </Custom>
+  <Custom>
+    <Filter>now</Filter>
+    <Text>Get-Date</Text>
+    <Type>Invoke</Type>
+  </Custom>
+  <Custom>
+    <Filter>date</Filter>
+    <Text>Get-Date -date</Text>
+    <Type>Invoke</Type>
+  </Custom>
+  <Custom>
+    <Filter>time</Filter>
+    <Text>Get-Date -time</Text>
+    <Type>Invoke</Type>
+  </Custom>
+</NewDataSet>
