@@ -9,7 +9,10 @@ Import-Module .\modules\Pscx -arg ".\modules\pscx\Pscx.UserPreferences.ps1"
 Import-Module .\modules\VS
 
 Import-Module .\modules\LINQ
-Write-Host -ForegroundColor 'Yellow' "Loaded LINQ Module"
+Write-Host -ForegroundColor 'Yellow' "LINQ Module loaded"
+
+Import-Module .\modules\WGet
+Write-Host -ForegroundColor 'Yellow' "WGet Module loaded"
 
  #### Functions Used to Load VS Command Prompt #####
   
