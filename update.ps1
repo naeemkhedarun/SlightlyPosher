@@ -27,6 +27,13 @@ function downloadFile($url, $targetFile)
     $responseStream.Dispose() 
 }
 
+$isGitRepoDir = Get-ChildItem -Filter ".git" | Where {$_.psIsContainer -eq $true}
+if($isGitRepoDir -ne $null)
+{
+	"This is a git repository, please use git pull instead."
+	return
+}
+
 $location = "https://github.com/naeemkhedarun/SlightlyPosher/zipball/master"
 $file = "package.zip"
 $dl = New-Object System.Net.WebClient
