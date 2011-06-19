@@ -11,8 +11,6 @@ Import-Module .\modules\Pscx -arg ".\modules\pscx\Pscx.UserPreferences.ps1"
 
 Import-Module .\modules\VS
 
-Import-Module .\modules\ShowUI
-
 Import-Module .\modules\LINQ
 Write-Host -ForegroundColor 'Yellow' "LINQ Module loaded"
 
