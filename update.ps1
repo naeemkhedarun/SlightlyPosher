@@ -51,7 +51,7 @@ $destination.Copyhere($zip_file.items())
 Get-ChildItem -Filter "naeemkhedarun-SlightlyPosher*" | Get-ChildItem | Copy-Item -Force -Recurse
 
 "Cleaning up..."
-Get-ChildItem -Filter "naeemkhedarun-SlightlyPosher*" | Remove-Item -Recurse
+Get-ChildItem -Filter "naeemkhedarun-SlightlyPosher*" | Remove-Item -Recurse -Force
 Get-ChildItem -Filter ".git*" | Remove-Item
 
 Remove-Item $file
