@@ -27,7 +27,7 @@ function downloadFile($url, $targetFile)
     $responseStream.Dispose() 
 }
 
-$location = "https://github.com/khedan/SlightlyPosher/zipball/master"
+$location = "https://github.com/naeemkhedarun/SlightlyPosher/zipball/master"
 $file = "package.zip"
 $dl = New-Object System.Net.WebClient
 
@@ -40,11 +40,13 @@ $zip_file = $shell_app.namespace((Get-Location).Path + "\$filename")
 $destination = $shell_app.namespace((Get-Location).Path) 
 $destination.Copyhere($zip_file.items())
 
-"Copying files..."
-gl | Get-ChildItem -Include "khedan*" | Get-ChildItem | Copy-Item -Force | gl
+"`nCopying files..."
+Get-ChildItem -Filter "naeemkhedarun-SlightlyPosher*" | Get-ChildItem | Copy-Item -Force -Recurse
 
 "Cleaning up..."
-gl | Get-ChildItem -Include "khedan*" | Remove-Item -Recurse
+Get-ChildItem -Filter "naeemkhedarun-SlightlyPosher*" | Remove-Item -Recurse
+Get-ChildItem -Filter ".git*" | Remove-Item
+
 Remove-Item $file
 
-"Done!"
+"Update complete!"
