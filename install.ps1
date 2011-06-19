@@ -8,5 +8,11 @@ if($hasProfile -eq $false)
 }
 
 $root = gl
-Add-Content $PROFILE "$root\posh\profile.ps1"
-Add-Content $PROFILE ('$env:Path += ";' + $root + '\bin"')
+
+$isInstalled = Get-Content $PROFILE | ForEach-Object { if($_.Contains("$root\posh\profile.ps1") -eq $true){$true;break;}}
+
+if($isInstalled -ne $true){
+
+	Add-Content $PROFILE "$root\posh\profile.ps1"
+	Add-Content $PROFILE ('$env:Path += ";' + $root + '\bin"')
+}
