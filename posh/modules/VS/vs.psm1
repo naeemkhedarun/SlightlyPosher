@@ -6,7 +6,7 @@ function Clear-Assemblies($directory)
 	}
 }
 
-function Set-CopyLocalFalse($projectFile, $tfsCheckout)
+function Set-CopyLocalFalse($projectFile, $doProjectReferences, $tfsCheckout)
 {
 	[xml]$s = get-content $projectFile
 
@@ -23,13 +23,16 @@ function Set-CopyLocalFalse($projectFile, $tfsCheckout)
 		}
 	}
 
-	foreach($reference in $projectReferences.ChildNodes)
-	{ 
-		if($reference.Private -eq $null)
-		{
-			[System.Xml.XmlElement]$copyLocal = $s.CreateElement("Private", "http://schemas.microsoft.com/developer/msbuild/2003")
-			$copyLocal.InnerText = "False"
-			[Void]$reference.AppendChild($copyLocal) 
+	if($doProjectReferences -eq $true)
+	{
+		foreach($reference in $projectReferences.ChildNodes)
+		{ 
+			if($reference.Private -eq $null)
+			{
+				[System.Xml.XmlElement]$copyLocal = $s.CreateElement("Private", "http://schemas.microsoft.com/developer/msbuild/2003")
+				$copyLocal.InnerText = "False"
+				[Void]$reference.AppendChild($copyLocal) 
+			}
 		}
 	}
 	
@@ -47,10 +50,10 @@ function Set-TFSCheckout($file)
 		tf checkout $file
 }
 
-function Set-SolutionWideCopyLocalFalse($directory, $tfsCheckout)
+function Set-SolutionWideCopyLocalFalse($directory, $doProjectReferences, $tfsCheckout)
 {
 	Get-ChildItem $directory -include *.csproj,*.vbproj -Recurse | foreach ($_) { 
-		Set-CopyLocalFalse $_.fullname $tfsCheckout
+		Set-CopyLocalFalse $_.fullname $doProjectReferences $tfsCheckout
 	}
 }
 
