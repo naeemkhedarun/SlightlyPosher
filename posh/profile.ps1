@@ -20,22 +20,7 @@ Write-Host -ForegroundColor 'Yellow' "WGet Module loaded"
 Import-Module .\modules\SlightlyPosher
 Write-Host -ForegroundColor 'Yellow' "SlightPosher Module loaded"
 
-#### Functions Used to Load VS Command Prompt #####
-function Get-Batchfile ($file) {
-    $cmd = "`"$file`" & set"
-    cmd /c $cmd | Foreach-Object {
-        $p, $v = $_.split('=')
-        Set-Item -path env:$p -value $v
-    }
-}
-  
-function VsVars32()
-{
-    $vs90comntools = get-childitem Env: | where {$_.Name -eq "VS90COMNTOOLS"}    
-    $batchFile = [System.IO.Path]::Combine($vs90comntools.Value, "vsvars32.bat")
-    Get-Batchfile -file $batchFile
-}
-VsVars32
+Set-VsVars32 2010
  
 #Credit: http://www.nivot.org/post/2009/08/15/PowerShell20PersistingCommandHistory.aspx
 # save last 100 history items on exit

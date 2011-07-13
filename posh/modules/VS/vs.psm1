@@ -1,3 +1,27 @@
+#### Functions Used to Load VS Command Prompt #####
+function Get-Batchfile ($file) {
+    $cmd = "`"$file`" & set"
+    cmd /c $cmd | Foreach-Object {
+        $p, $v = $_.split('=')
+        Set-Item -path env:$p -value $v
+    }
+}
+
+function Set-VsVars32($vsYear)
+{
+   switch ($vsYear)
+   {
+        2008 {$vstools = $env:VS90COMNTOOLS}
+        2010 {$vstools = $env:VS100COMNTOOLS }
+   }
+
+   $batchFile = [System.IO.Path]::Combine($vstools, "vsvars32.bat") 
+   
+   Get-Batchfile -file $batchFile
+   
+   Write-Host -ForegroundColor 'Yellow' "VsVars has been loaded from: $batchFile"
+}
+
 function Clear-Assemblies($directory)
 {
 	Get-ChildItem $directory -include bin,obj -Recurse | foreach ($_) { 
