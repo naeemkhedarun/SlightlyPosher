@@ -118,11 +118,18 @@ function Get-ProjectsContainingReferenceTo($directory, $referenceName)
 	}
 }
 
+function Get-ProjectsContainingAProjectReferenceTo($directory, $referenceName)
+{
+	Get-ChildItem $directory -include *.csproj,*.vbproj -Recurse | foreach ($_) { 
+		if(Get-ContainsProjectReferenceTo $_.fullname $referenceName -eq $true){ $_.fullname }
+	}
+}
+
 function Get-ContainsReferenceTo($projectFile, $referenceName)
 {
 	[xml]$s = get-content $projectFile
 
-	$references = $s.Project.ItemGroup | Where-Object { $_.Reference -ne $null }
+	$references = $s.Project.ItemGroup | Where-Object { $_.ProjectReference -ne $null }
 	
 	foreach($reference in $references.ChildNodes)
 	{ 
