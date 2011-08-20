@@ -61,3 +61,27 @@ function Show-BalloonTip {
   }
  }
 }
+
+#Credit: http://www.techmumbojumblog.com/?p=304
+function Get-Checksum($file, $crypto_provider) {
+	if ($crypto_provider -eq $null) {
+		$crypto_provider = new-object 'System.Security.Cryptography.MD5CryptoServiceProvider';
+	}		
+
+	$file_info	= get-item $file;
+	trap { ;
+	continue } $stream = $file_info.OpenRead();
+	if ($? -eq $false) {
+		return $null;
+	}
+
+	$bytes		= $crypto_provider.ComputeHash($stream);
+	$checksum	= '';
+	foreach ($byte in $bytes) {
+		$checksum	+= $byte.ToString('x2');
+	}
+
+	$stream.close() | out-null;
+
+	return $checksum;
+}
